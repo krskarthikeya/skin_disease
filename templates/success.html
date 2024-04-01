@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href={{url_for('static' , filename = 'css/normalize.css')}}>
+        <link rel="stylesheet" href={{url_for('static' , filename = 'css/grid.css')}}>
+        <link rel='stylesheet' href={{url_for('static' , filename = 'css/styleSucc.css')}}>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet" type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
+        <link href="../static/images/favicon.ico" rel="icon" type="image/x-icon">
+
+        <title>Results</title>
+
+        <style type="text/css">
+            th{
+                text-align: center;
+                font-size: 20px;
+            }
+
+            td{
+                text-align: center;
+                font-size: 18px;
+            }
+      
+            .disinfo{
+                margin-top:50px;
+                width:80%;
+                height:500px;
+            }
+            body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: #f0f0f0; /* Set your desired background color */
+            }
+
+            .disease-info {
+                text-align: center;
+                /* margin-top: 50px; */
+                padding: 30px;
+                margin: 5px;
+                background-color: #fff; /* Set your desired background color for the info box */
+                border-radius: 15px; /* Optional: Add rounded corners to the info box */
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+                background-color: rgb(165, 222, 224);
+            }
+
+            .disease-info h3 {
+                color: #333; /* Set your desired text color for the heading */
+            }
+
+            .disease-info p {
+                font-size: 16px;
+                color: #666; /* Set your desired text color for the content */
+            }
+
+            .disinfo {
+                margin-top: 20px;
+                width: 80%;
+                height: 500px;
+            }
+            .cureHead{
+                text-align:center;
+                font-weight:bold;
+                font-size:24px;
+                color:black;
+            }
+            #cureInfo{
+                align-items: flex-start;
+            }
+            table{
+                background: white;
+            }
+            *{
+                font-family: Arial, Helvetica, sans-serif;
+            }
+    </style>
+    </head>
+    <body>
+        <div class = "second-main" style = "height: 100% , width : 100%;">
+                <ul style = "padding-right: 2%;" class = "main-nav">
+                    <li><a href ="/" class="home">HomePage</a></li>                
+                </ul>
+            <div class = "header">
+                <row style = "width: 100% ; display: flex; justify-content: center;">
+                    <h3 class="header-text">Uploaded Image</h3>
+                </row>
+                <row style = "width: 100% ; display: flex; justify-content: center;">
+                    <img class = "result-img" src={{url_for('static', filename = 'images/'+ img)}}>
+                </row>
+            </div>
+
+            <div class = "info">
+            
+                <row style = "width: 100% ; display: flex; justify-content: center;">
+                    <h3 class = "header-text">Disease Predicted</h3>
+                </row>
+                <row style = "width: 100%; display: flex; justify-content: center;">
+                    <table class="table-bordered text-light table-custom">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Class</th>
+                            <th>Probability</th>
+                        </tr>
+                        <tr>
+                            <td>1st</td>
+                            <td>{{ predictions.class1 }}</td>
+                            <td>{{ predictions.prob1 }} %</td>
+                          </tr>
+                          <tr>
+                            <td>2nd</td>
+                            <td>{{ predictions.class2 }}</td>                                                         
+                            <td>{{ predictions.prob2 }} %</td>    
+                        </tr>                                                         
+                        <tr>
+                            <td>3rd</td>
+                            <td>{{ predictions.class3 }}</td>
+                            <td>{{ predictions.prob3 }} %</td>
+                          </tr>
+                    </table>
+                </row>
+                
+            </div>
+            
+        </div>
+        <div class="disease-info">
+            <h2 class="cureHead">Cure and Immediate Measures:</h3>
+            <p id="cureInfo"></p>
+            <p id="measuresInfo"></p>
+        </div>
+        
+        <!-- <center>
+            <iframe src='https://www.diseaseinfosearch.org/search?term={{predictions.class1}}' class='disinfo'></iframe>
+        </center> -->
+        
+<!--    
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // console.log(predictions);
+        // Assuming predictions.cureInfo and predictions.measuresInfo are variables containing the relevant information.
+        var cureInfoElement = document.getElementById('cureInfo');
+        var measuresInfoElement = document.getElementById('measuresInfo');
+
+        if (cureInfoElement && measuresInfoElement) {
+            // Store predictions.class1 in a JavaScript variable
+            var predictedDisease = "{{ predictions.class1 }}";
+
+            cureInfoElement.innerHTML = 'No information available.';
+            measuresInfoElement.innerHTML = '';
+console.log(predictedDisease);
+            // Check if the predicted disease is melanoma and update the cure information accordingly
+            if (predictedDisease.toLowerCase() === 'melanoma') {
+                cureInfoElement.innerHTML = `<ul>
+                    <li>Melanoma, a type of skin cancer originating from melanocytes, requires a multifaceted approach to treatment.The primary method is often surgical intervention, involving the removal of the tumor and adjacent healthy tissue.</li>
+                    <li>Additionally, advancements in cancer treatment have introduced immunotherapy, which stimulates the body's immune system to combat cancer cells.</li>
+                    <li>Targeted therapies are utilized for cases with specific genetic mutations, while chemotherapy and radiation therapy may be employed in certain situations. Adjuvant therapy may follow surgery to reduce the risk of recurrence. </li>
+                    <li>Always consult with a healthcare professional for personalized advice, as the optimal course of action depends on the specific characteristics and stage of the melanoma.</li> </ul>`;
+            }   
+        }
+    });
+</script> -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var cureInfoElement = document.getElementById('cureInfo');
+        var measuresInfoElement = document.getElementById('measuresInfo');
+
+        if (cureInfoElement && measuresInfoElement) {
+            var predictedDisease = "{{ predictions.class1 }}";
+            cureInfoElement.innerHTML = 'No information available.';
+            measuresInfoElement.innerHTML = '';
+
+            switch (predictedDisease.toLowerCase()) {
+                case 'melanoma':
+                    cureInfoElement.innerHTML = `<ul>
+                        <li>Melanoma, a type of skin cancer originating from melanocytes, requires a multifaceted approach to treatment. The primary method is often surgical intervention, involving the removal of the tumor and adjacent healthy tissue.</li>
+                        <li>Additionally, advancements in cancer treatment have introduced immunotherapy, which stimulates the body's immune system to combat cancer cells.</li>
+                        <li>Targeted therapies are utilized for cases with specific genetic mutations, while chemotherapy and radiation therapy may be employed in certain situations. Adjuvant therapy may follow surgery to reduce the risk of recurrence.</li>
+                        <li>Always consult with a healthcare professional for personalized advice, as the optimal course of action depends on the specific characteristics and stage of the melanoma.</li>
+                    </ul>`;
+                    measuresInfoElement.innerHTML = `<p>Immediate Measures:</p>
+                        <ul>
+                            <li>If you suspect melanoma, seek immediate medical attention.</li>
+                            <li>Avoid sun exposure and use sun protection measures such as wearing sunscreen and protective clothing.</li>
+                            <li>Regularly monitor your skin for any changes in moles or new growths.</li>
+                        </ul>`;
+                    break;
+                case 'actinic keratoses':
+                    cureInfoElement.innerHTML = `<ul>
+                        <li>Actinic keratoses are precancerous lesions caused by long-term sun exposure. Treatment aims to prevent progression to skin cancer.</li>
+                        <li>Treatment options include cryotherapy (freezing), topical medications (e.g., 5-fluorouracil), and photodynamic therapy.</li>
+                        <li>Regular skin examinations and sun protection are essential for preventing recurrence and development of new lesions.</li>
+                    </ul>`;
+                    measuresInfoElement.innerHTML = `<p>Immediate Measures:</p>
+                        <ul>
+                            <li>If you suspect actinic keratoses, consult a dermatologist for evaluation and potential treatment.</li>
+                            <li>Avoid further sun exposure and use sunscreen with a high SPF.</li>
+                            <li>Protective clothing and seeking shade can also help prevent further damage to the skin.</li>
+                        </ul>`;
+                    break;
+                case 'basal cell carcinoma':
+                    cureInfoElement.innerHTML = `<ul>
+                        <li>Basal cell carcinoma is a common type of skin cancer that rarely metastasizes but can cause local tissue destruction if left untreated.</li>
+                        <li>Treatment options include surgical excision, Mohs micrographic surgery, cryotherapy, and topical medications.</li>
+                        <li>Early detection and treatment are crucial to prevent the spread of the cancer and minimize scarring.</li>
+                    </ul>`;
+                    measuresInfoElement.innerHTML = `<p>Immediate Measures:</p>
+                        <ul>
+                            <li>If you suspect basal cell carcinoma, seek prompt evaluation and treatment by a dermatologist.</li>
+                            <li>Avoid sun exposure and use sunscreen to prevent further damage to the skin.</li>
+                            <li>Regular skin examinations are essential for early detection and timely intervention.</li>
+                        </ul>`;
+                    break;
+                case 'benign keratosis':
+                    cureInfoElement.innerHTML = `<p>Benign keratosis, also known as seborrheic keratosis, is a non-cancerous skin growth that typically does not require medical treatment unless it causes discomfort or is cosmetically undesirable.</p>`;
+                    measuresInfoElement.innerHTML = `<p>Immediate Measures:</p>
+                        <ul>
+                            <li>If the growth is causing discomfort, itching, or irritation, keep the area well-moisturized and avoid scratching or picking at the lesion.</li>
+                            <li>Protect the skin from sun exposure by wearing sunscreen and protective clothing to prevent further irritation or changes in the lesion.</li>
+                            <li>Consult a dermatologist for evaluation and potential removal if the growth is cosmetically concerning or causing significant discomfort.</li>
+                        </ul>`;
+                    break;
+                 case 'dermatofibroma':
+        cureInfoElement.innerHTML = `<ul>
+            <li>Dermatofibroma is a common benign skin lesion characterized by a firm, raised nodule.</li>
+            <li>Most dermatofibromas do not require treatment unless they cause symptoms or cosmetic concerns.</li>
+            <li>If treatment is desired, surgical excision may be performed.</li>
+            <li>Consultation with a dermatologist is recommended for evaluation and management options.</li>
+        </ul>`;
+        measuresInfoElement.innerHTML = `<p>Immediate Measures:</p>
+            <ul>
+                <li>If the dermatofibroma is causing discomfort or is cosmetically undesirable, consult a dermatologist for evaluation and potential treatment.</li>
+                <li>Avoid scratching or picking at the lesion to prevent irritation or infection.</li>
+                <li>Regular monitoring of the lesion is recommended to detect any changes or signs of concern.</li>
+            </ul>`;
+        break;
+    case 'melanocytic nevi':
+        cureInfoElement.innerHTML = `<ul>
+            <li>Melanocytic nevi, commonly known as moles, are benign growths composed of melanocytes.</li>
+            <li>Most moles do not require treatment unless they exhibit concerning features such as asymmetry, irregular borders, or changes in color or size.</li>
+            <li>If a mole is suspicious for melanoma, it may be biopsied or surgically removed for further evaluation.</li>
+            <li>Regular self-examination and monitoring of moles are important for early detection of melanoma.</li>
+        </ul>`;
+        measuresInfoElement.innerHTML = `<p>Immediate Measures:</p>
+            <ul>
+                <li>Regularly monitor moles for changes in size, shape, color, or texture.</li>
+                <li>Seek medical evaluation if you notice any new or changing moles or if existing moles become symptomatic.</li>
+                <li>Practice sun protection measures to reduce the risk of developing new moles or melanoma.</li>
+            </ul>`;
+        break;
+    case 'vascular naevus':
+        cureInfoElement.innerHTML = `<ul>
+            <li>Vascular naevus, also known as a hemangioma, is a benign growth of blood vessels in the skin.</li>
+            <li>Most vascular naevi do not require treatment and may resolve on their own over time.</li>
+            <li>If treatment is desired for cosmetic reasons or if the lesion causes discomfort, options may include laser therapy, surgical excision, or medication.</li>
+            <li>Consultation with a dermatologist is recommended to discuss management options.</li>
+        </ul>`;
+        measuresInfoElement.innerHTML = `<p>Immediate Measures:</p>
+            <ul>
+                <li>If the vascular naevus causes discomfort or is cosmetically undesirable, consult a dermatologist for evaluation and potential treatment.</li>
+                <li>Avoid irritating or injuring the lesion to prevent bleeding or infection.</li>
+                <li>Regular monitoring of the lesion is recommended to detect any changes or signs of concern.</li>
+            </ul>`;
+        break;
+    default:
+        cureInfoElement.innerHTML = 'No information available.';
+}
+        }
+    });
+</script>
+
+
+
+
+    </body>
+
+</html>
